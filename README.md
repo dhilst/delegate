@@ -13,11 +13,11 @@ From wikipedia, what is delegation
 So if you're using compostion, I mean, one object made othe other objects, soon or
 latter you will want to delegate method calls from composed objects to component ones.
 
-# Installation 
+# Installation
 
 This is python3 only, but it's very simple library with no dependences, it would not be hard to port it to python2, contributions are welcome!
 
-    pip install delegate
+    pip install delegateto
 
 # Examples extracted from Doctest
 
@@ -26,6 +26,7 @@ DelegateTo descriptor let you delegate method calls
 The argument name is the name of the method that you want to
 delegate, for example.
 
+    from delegateto import DelegateTo
     class Foo:
         upper = DelegateTo('v')
         __len__ = DelegateTo('l')
@@ -86,7 +87,7 @@ object. For example
 
 There is another way of creating delegators with class decorators, here is how
 
-    from delegate import delegate
+    from delegateto import delegate
     @delegate('v', 'upper')
     @delegate('v', 'lower')
     @delegate('v', 'wrong_method')
@@ -94,7 +95,7 @@ There is another way of creating delegators with class decorators, here is how
     class Foo:
         def __init__(self, v):
             self.v = v
-    
+
     Foo('foo').upper() # => 'FOO'
     Foo('FOO').lower() # => 'foo'
 
@@ -108,3 +109,7 @@ As a shortcut you can use pass any number of methods to delegate
     class Foo:
         def __init__(self, v):
             self.v = v
+
+# Running tests
+
+Simple run the module `python -m delegateto`

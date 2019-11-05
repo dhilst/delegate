@@ -7,11 +7,11 @@ from setuptools import setup
 README = (pathlib.Path(__file__).parent / "README.md").read_text()
 
 setup(
-    name="delegate",
+    name="delegateto",
     author="Daniel Hilst Selli",
     author_email="danielhilst@gmail.com",
     version="1.0",
-    py_modules=["delegate"],
+    py_modules=["delegateto"],
     python_requires=">=3",
     long_description=README,
     long_description_content_type="text/markdown",
