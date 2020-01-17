@@ -29,19 +29,35 @@ def delegate(to, *methods):
     ... class Foo:
     ...     def __init__(self, v):
     ...         self.v = v
+
+    Properties can also be delegated.
+    >>> class Bar:
+    ...     def __init__(self):
+    ...         self._param = 0
+    ...     @property
+    ...     def param(self):
+    ...         return self._param
+    ...     @param.setter
+    ...     def param(self, param):
+    ...         self_param = param
+
+    >>> @delegate('v', 'param')
+    ... class Foo2:
+    ...     def __init__(self):
+    ...         self.v = Bar()
+
+    >>> foo2 = Foo2()
+
+    >>> foo2.param
+    0
+    >>> foo2.param = 2
+    >>> foo2.param
+    2
     """
 
     def dec(klass):
-        def create_delegator(method):
-            def delegator(self, *args, **kwargs):
-                obj = getattr(self, to)
-                m = getattr(obj, method)
-                return m(*args, **kwargs)
-
-            return delegator
-
         for m in methods:
-            setattr(klass, m, create_delegator(m))
+            setattr(klass, m, DelegateTo(to, m))
         return klass
 
     return dec
