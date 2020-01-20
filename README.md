@@ -38,7 +38,7 @@ delegate, for example.
 
 To call a method just call its delegator
 
-    foo.upper() # => 'HELLO WORLD'
+    foo.up() # => 'HELLO WORLD'
 
 Magic methods are supported
 
