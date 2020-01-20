@@ -1,6 +1,6 @@
 # Delegate methods made easy
 
-This tiny library implements two simple ways of method delegators, by descriptors
+This tiny library implements two simple ways of method or property delegators, by descriptors
 and by class decorators.
 
 From wikipedia, what is delegation:
@@ -19,9 +19,9 @@ This is python3 only, but it's very simple library with no dependences, it would
 
 # Examples
 
-DelegateTo descriptor let you delegate method calls
+DelegateTo descriptor let you delegate method or property calls
 
-The argument name is the name of the method that you want to
+The argument name is the name of the method or property that you want to
 delegate, for example.
 
     from delegateto import DelegateTo
@@ -48,14 +48,14 @@ Magic methods are supported
 
 At class parsing time is not possible for `DelegateTo` to know to what 
 attribute you're assigning it to. For example `foo = DelegateTo('bar')` Pay 
-attention that `DelegateTo` doesn't receive anyinformation about `foo` 
+attention that `DelegateTo` doesn't receive any information about `foo` 
 attribute, but it will discover this latter.  The method name is discovered at 
 the first call. This is done by iterating over all the object's attributes. 
 Once found the method is cached and no search is performed in the subsequent 
 calls.
 
 Still, if you need to avoid this iteration you can initialize 
-the method name with the same name of the attibute name. 
+the method name with the same name of the attribute name. 
 
 For example
 
@@ -72,7 +72,7 @@ This make possible the creation of aliases
         def __init__(self, v):
             self.v = v
 
-    Foo('hello').up() # => 'HELLO'
+    Foo('hello').upper() # => 'HELLO'
 
 In this context 'self' has a special meaning of 
 delegating a method to another method in the same 
@@ -104,12 +104,36 @@ There is another way of creating delegators with class decorators, here is how
 
     Foo('foo').wrong_attribute() # => raises AttributeError: 'Foo' object has no attribute 'not_an_attribute'
 
-As a shortcut you can use pass any number of methods to delegate 
+As a shortcut you can use pass any number of methods or properties to delegate 
 
     @delegate('v', 'upper', 'lower')
     class Foo:
         def __init__(self, v):
             self.v = v
+
+Example using properties instead of methods
+
+    class Bar:
+        def __init__(self):
+            self._param = 0
+        @property
+        def param(self):
+            return self._param
+        @param.setter
+        def param(self, param):
+            self_param = param
+
+    @delegate('v', 'param')
+    class Foo2:
+        def __init__(self):
+            self.v = Bar()
+
+    foo2 = Foo2()
+    foo2.param  # => 0
+    
+    foo2.param = 2
+    foo2.param  # => 2
+ 
 
 # Running tests
 
