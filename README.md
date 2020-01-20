@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/dhilst/delegate.svg?branch=master)](https://travis-ci.org/dhilst/delegate)
 # Delegate methods made easy
 
 This tiny library implements two simple ways of method or property delegators, by descriptors
