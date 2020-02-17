@@ -39,7 +39,7 @@ def delegate(to, *methods):
     ...         return self._param
     ...     @param.setter
     ...     def param(self, param):
-    ...         self_param = param
+    ...         self._param = param
 
     >>> @delegate('v', 'param')
     ... class Foo2:
@@ -52,6 +52,10 @@ def delegate(to, *methods):
     0
     >>> foo2.param = 2
     >>> foo2.param
+    2
+    >>> foo2.v.param
+    2
+    >>> foo2.v._param
     2
     """
 
@@ -136,6 +140,9 @@ class DelegateTo:
             if v is self:
                 self.method = method
                 return getattr(getattr(obj, self.to), method)
+
+    def __set__(self, obj, value):
+        setattr(getattr(obj, self.to), self.method, value)
 
 
 if __name__ == "__main__":

@@ -121,7 +121,7 @@ Example using properties instead of methods
             return self._param
         @param.setter
         def param(self, param):
-            self_param = param
+            self._param = param
 
     @delegate('v', 'param')
     class Foo2:
@@ -133,6 +133,8 @@ Example using properties instead of methods
     
     foo2.param = 2
     foo2.param  # => 2
+    foo2.v.param   # => 2
+    foo2.v._param   # => 2
  
 
 # Running tests
