@@ -10,7 +10,7 @@ setup(
     name="delegateto",
     author="Daniel Hilst Selli",
     author_email="danielhilst@gmail.com",
-    version="1.3",
+    version="1.4",
     py_modules=["delegateto"],
     python_requires=">=3",
     long_description=README,
