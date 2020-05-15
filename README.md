@@ -73,7 +73,7 @@ This make possible the creation of aliases
         def __init__(self, v):
             self.v = v
 
-    Foo('hello').upper() # => 'HELLO'
+    Foo('hello').up() # => 'HELLO'
 
 In this context 'self' has a special meaning of 
 delegating a method to another method in the same 
