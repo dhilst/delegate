@@ -14,7 +14,7 @@ From wikipedia, what is delegation:
 
 # Installation
 
-This is python3 only, but it's very simple library with no dependences, it would not be hard to port it to python2, contributions are welcome!
+This is Python 3 only, but it's very simple library with no dependences, it would not be hard to port it to Python 2, contributions are welcome!
 
     pip install delegateto
 
@@ -47,16 +47,23 @@ Magic methods are supported
     [x*2 for x in foo] # => [2, 4, 6]
 
 
-At class parsing time is not possible for `DelegateTo` to know to what 
-attribute you're assigning it to. For example `foo = DelegateTo('bar')` Pay 
-attention that `DelegateTo` doesn't receive any information about `foo` 
-attribute, but it will discover this latter.  The method name is discovered at 
-the first call. This is done by iterating over all the object's attributes. 
-Once found the method is cached and no search is performed in the subsequent 
-calls.
+~~At class parsing time is not possible for `DelegateTo` to know to what
+attribute you're assigning it to. For example `foo = DelegateTo('bar')` Pay
+attention that `DelegateTo` doesn't receive any information about `foo`
+attribute, but it will discover this latter.  The method name is discovered at
+the first call. This is done by iterating over all the object's attributes.
+Once found the method is cached and no search is performed in the subsequent
+calls.~~
 
-Still, if you need to avoid this iteration you can initialize 
-the method name with the same name of the attribute name. 
+In fact, in Python +3.6 we can take advantage of `__set_name__` to get the
+attribute name information not needing to iterate through all the object attributes.
+This make it more efficient. If `__set_name__` is not available it will resort to
+the loop so the above paragraph still applies on Python <=3.5. Please note that
+while this *should* work on Python 3.5, it's not tested on it, only 3.6+ versions
+are tested on the CI.
+
+Still, if you need to avoid this iteration (on Python 3.5 and below) you can initialize
+the method name with the same name of the attribute name.
 
 For example
 
