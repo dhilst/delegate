@@ -136,6 +136,9 @@ class DelegateTo:
             return getattr(obj, self.method)
         if self.method is not None:
             return getattr(getattr(obj, self.to), self.method)
+
+        # In pythons <3.6 __set_name__ will not be called
+        # so this works as a fallback anyway
         for method, v in obj.__class__.__dict__.items():
             if v is self:
                 self.method = method
@@ -143,6 +146,10 @@ class DelegateTo:
 
     def __set__(self, obj, value):
         setattr(getattr(obj, self.to), self.method, value)
+
+    def __set_name__(self, owner, name):
+        if self.method is None:
+            self.method = name
 
 
 if __name__ == "__main__":
