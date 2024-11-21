@@ -1,3 +1,6 @@
+I'm archiving this repository, I suggest that anybody using it copy the `delegateto.py`
+to their codebase. The license is ok with that.
+
 [![Build Status](https://travis-ci.org/dhilst/delegate.svg?branch=master)](https://travis-ci.org/dhilst/delegate)
 # Delegate methods made easy
 
