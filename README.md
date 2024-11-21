@@ -1,3 +1,5 @@
+
+# NOTICE
 I'm archiving this repository, I suggest that anybody using it copy the `delegateto.py`
 to their codebase. The license is ok with that.
 
